@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Feedback - Government Service Feedback Portal</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .feedback-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .step-indicator {
+            margin-bottom: 30px;
+        }
+        .step {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            background-color: #e9ecef;
+            margin-right: 10px;
+        }
+        .step.active {
+            background-color: #0d6efd;
+            color: white;
+        }
+        .step.completed {
+            background-color: #198754;
+            color: white;
+        }
+        .feedback-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="feedback-container">
+            <!-- Step Indicator -->
+            <div class="step-indicator text-center">
+                <span class="step active">1</span>
+                <span class="step">2</span>
+                <span class="step">3</span>
+                <span class="step">4</span>
+            </div>
+
+            <!-- Feedback Form -->
+            <div class="feedback-form">
+                <!-- Step 1: Select Subcity -->
+                <div id="step1">
+                    <h4 class="mb-4">Select Subcity</h4>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Bole</h5>
+                                    <button class="btn btn-primary w-100" onclick="selectSubcity('bole')">Select</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Kirkos</h5>
+                                    <button class="btn btn-primary w-100" onclick="selectSubcity('kirkos')">Select</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more subcities as needed -->
+                    </div>
+                </div>
+
+                <!-- Step 2: Select Office -->
+                <div id="step2" style="display: none;">
+                    <h4 class="mb-4">Select Office</h4>
+                    <div class="row" id="officeList">
+                        <!-- Offices will be dynamically loaded based on selected subcity -->
+                    </div>
+                </div>
+
+                <!-- Step 3: Select Employee -->
+                <div id="step3" style="display: none;">
+                    <h4 class="mb-4">Select Employee</h4>
+                    <div class="row" id="employeeList">
+                        <!-- Employees will be dynamically loaded based on selected office -->
+                    </div>
+                </div>
+
+                <!-- Step 4: Submit Feedback -->
+                <div id="step4" style="display: none;">
+                    <h4 class="mb-4">Submit Feedback</h4>
+                    <form id="feedbackForm">
+                        <div class="mb-3">
+                            <label for="feedbackTitle" class="form-label">Feedback Title</label>
+                            <input type="text" class="form-control" id="feedbackTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="feedbackContent" class="form-label">Your Feedback</label>
+                            <textarea class="form-control" id="feedbackContent" rows="5" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userName" class="form-label">Your Name (Optional)</label>
+                            <input type="text" class="form-control" id="userName">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Submit Feedback</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="css/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/submit_feedback.js"></script>
+</body>
+</html> 

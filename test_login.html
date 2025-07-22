@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input { width: 300px; padding: 8px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+        .result { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h1>Test Government Admin Login</h1>
+    
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" value="realbekfikadu.com@gmail.com">
+    </div>
+    
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" value="163216">
+    </div>
+    
+    <button onclick="testLogin()">Test Login</button>
+    
+    <div id="result" class="result" style="display: none;"></div>
+    
+    <script>
+        async function testLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Store token and user data
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    
+                    resultDiv.innerHTML = `
+                        <h3>Login Successful!</h3>
+                        <p>Token: ${data.token.substring(0, 50)}...</p>
+                        <p>User Role: ${data.user.role}</p>
+                        <p>Email: ${data.user.email}</p>
+                        <button onclick="testDashboard()">Test Dashboard API</button>
+                        <button onclick="window.location.href='government_admin.html'">Go to Dashboard</button>
+                    `;
+                    resultDiv.style.display = 'block';
+                } else {
+                    resultDiv.innerHTML = `<h3>Login Failed</h3><p>${data.message}</p>`;
+                    resultDiv.style.display = 'block';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<h3>Error</h3><p>${error.message}</p>`;
+                resultDiv.style.display = 'block';
+            }
+        }
+        
+        async function testDashboard() {
+            const token = localStorage.getItem('token');
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                const response = await fetch('/api/government-admin/dashboard/stats', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML += `
+                        <h3>Dashboard API Test Successful!</h3>
+                        <p>Total Employees: ${data.stats.totalEmployees}</p>
+                        <p>Active Offices: ${data.stats.activeOffices}</p>
+                        <p>Pending Feedback: ${data.stats.pendingFeedback}</p>
+                        <p>Resolved Issues: ${data.stats.resolvedIssues}</p>
+                    `;
+                } else {
+                    resultDiv.innerHTML += `<h3>Dashboard API Failed</h3><p>${data.message}</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML += `<h3>Dashboard API Error</h3><p>${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html> 

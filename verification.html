@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verification Code - Government Service Feedback System</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/verification.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="images/ethio.png" alt="Ethiopia Flag" width="30" height="30" class="d-inline-block align-text-top me-2">
+        Federal Democratic Republic of Ethiopia
+      </a>
+    </div>
+  </nav>
+
+  <!-- Verification Section -->
+  <section class="verification-section py-7">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+          <div class="card shadow">
+            <div class="card-body">
+              <div class="text-center mb-4">
+                <h4 class="card-title">Enter Verification Code</h4>
+              </div>
+              <p>A Verification code has been sent to <strong>gjagka.....@gmail.com</strong></p>
+              <form id="verificationForm">
+                <div class="input-group input-group-sm mb-3">
+                  <input type="text" class="form-control form-control-sm text-center" id="code1" maxlength="1" required>
+                  <input type="text" class="form-control form-control-sm text-center" id="code2" maxlength="1" required>
+                  <input type="text" class="form-control form-control-sm text-center" id="code3" maxlength="1" required>
+                  <input type="text" class="form-control form-control-sm text-center" id="code4" maxlength="1" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Verify</button>
+                <div class="mt-3 text-center">
+                  <a href="#" class="text-danger">Didn't receive the code?</a>
+                  <span class="timer text-danger ms-2">02:13</span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">About the Portal</p>
+          <small>This feedback portal has been developed to provide good governance in all sub-cities of Addis to design a bridge between citizens and the Government Administrations.</small>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <p class="mb-0">Connect with the city Government:</p>
+          <a href="#"><i class="fab fa-facebook-square fa-2x mx-1"></i></a>
+          <a href="#"><i class="fab fa-telegram-plane fa-2x mx-1"></i></a>
+          <a href="#"><i class="fab fa-x-twitter fa-2x mx-1"></i></a>
+          <a href="#"><i class="fab fa-tiktok fa-2x mx-1"></i></a>
+          <p class="mb-0">Powered by: N5</p>
+          <p class="mb-0">@ Copyright 2025 Addis Ababa City Administration, All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="css/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="js/verification.js"></script>
+</body>
+</html>

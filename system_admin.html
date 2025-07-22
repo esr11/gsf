@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            background-image: url('images/aa31.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+         
+        }
+        .sidebar {
+            min-height: 100vh;
+            background-color: #343a40;
+            color: white;
+        }
+        .sidebar .nav-link {
+            color: rgba(255,255,255,.75);
+        }
+        .sidebar .nav-link:hover {
+            color: white;
+        }
+        .sidebar .nav-link.active {
+            color: white;
+            background-color: rgba(255,255,255,.1);
+        }
+        .main-content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <img src="images/ethio.png" alt="Ethiopia Flag" width="40" height="auto">
+                        <h5 class="mt-2">System Admin</h5>
+                        <p class="text-muted" id="adminName">Loading...</p>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" onclick="showSection('dashboard')">
+                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('government-admins')">
+                                <i class="fas fa-user-shield me-2"></i>Government Admins
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('users')">
+                                <i class="fas fa-users me-2"></i>Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('settings')">
+                                <i class="fas fa-cog me-2"></i>Settings
+                            </a>
+                        </li>
+                        <li class="nav-item mt-4">
+                            <a class="nav-link text-danger" href="login.html">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                <!-- Dashboard Section -->
+                <div id="dashboard">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Dashboard</h1>
+                    </div>
+                    
+                    <!-- Dashboard Stats -->
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card bg-primary text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Users</h5>
+                                    <h2 class="card-text" id="totalUsers">Loading...</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Government Admins</h5>
+                                    <h2 class="card-text" id="totalGovAdmins">Loading...</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card bg-info text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Regular Users</h5>
+                                    <h2 class="card-text" id="totalRegularUsers">Loading...</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">Recent Activity</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Action</th>
+                                            <th>Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentActivity">
+                                        <!-- Activity will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Government Admins Section -->
+                <div id="government-admins" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Government Admins</h1>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newGovAdminModal">
+                            <i class="fas fa-plus"></i> Add New Admin
+                        </button>
+                    </div>
+
+                    <!-- Government Admins Table -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="govAdminsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Email</th>
+                                            <th>Full Name</th>
+                                            <th>Status</th>
+                                            <th>Created At</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Government admins will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Section -->
+                <div id="users" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Users Management</h1>
+                    </div>
+
+                    <!-- Users Table -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Full Name</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Created At</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="usersList">
+                                        <!-- Users will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Section -->
+                <div id="settings" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Settings</h1>
+                    </div>
+
+                    <div class="row">
+                        <!-- Profile Settings -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Profile Settings</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form id="profileSettingsForm">
+                                        <div class="mb-3">
+                                            <label for="profileFullName" class="form-label">Full Name</label>
+                                            <input type="text" class="form-control" id="profileFullName" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="profileEmail" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="profileEmail" required>
+                                        </div>
+                                        <button type="button" class="btn btn-primary" onclick="updateProfile()">Update Profile</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Change Password -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Change Password</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form id="changePasswordForm">
+                                        <div class="mb-3">
+                                            <label for="currentPassword" class="form-label">Current Password</label>
+                                            <input type="password" class="form-control" id="currentPassword" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="newPassword" class="form-label">New Password</label>
+                                            <input type="password" class="form-control" id="newPassword" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+                                            <input type="password" class="form-control" id="confirmNewPassword" required>
+                                        </div>
+                                        <button type="button" class="btn btn-primary" onclick="changePassword()">Change Password</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notification Settings -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Notification Settings</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form id="notificationSettingsForm">
+                                        <div class="mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="emailNotifications">
+                                                <label class="form-check-label" for="emailNotifications">Email Notifications</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="systemNotifications">
+                                                <label class="form-check-label" for="systemNotifications">System Notifications</label>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-primary" onclick="updateNotificationSettings()">Save Settings</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- System Preferences -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">System Preferences</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form id="systemPreferencesForm">
+                                        <div class="mb-3">
+                                            <label for="timezone" class="form-label">Timezone</label>
+                                            <select class="form-select" id="timezone">
+                                                <option value="UTC">UTC</option>
+                                                <option value="Africa/Addis_Ababa">Africa/Addis_Ababa</option>
+                                                <!-- Add more timezones as needed -->
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="dateFormat" class="form-label">Date Format</label>
+                                            <select class="form-select" id="dateFormat">
+                                                <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                                <option value="DD-MM-YYYY">DD-MM-YYYY</option>
+                                                <option value="MM-DD-YYYY">MM-DD-YYYY</option>
+                                            </select>
+                                        </div>
+                                        <button type="button" class="btn btn-primary" onclick="updateSystemPreferences()">Save Preferences</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add New Government Admin Modal -->
+    <div class="modal fade" id="newGovAdminModal" tabindex="-1" aria-labelledby="newGovAdminModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newGovAdminModalLabel">Add New Government Admin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newGovAdminForm">
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="fullName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="createGovernmentAdmin()">Add Admin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Government Admin Modal -->
+    <div class="modal fade" id="editGovAdminModal" tabindex="-1" aria-labelledby="editGovAdminModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editGovAdminModalLabel">Edit Government Admin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editGovAdminForm">
+                        <input type="hidden" id="editUserId">
+                        <div class="mb-3">
+                            <label for="editFullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="editFullName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPassword" class="form-label">New Password (leave blank to keep current)</label>
+                            <input type="password" class="form-control" id="editPassword">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editConfirmPassword" class="form-label">Confirm New Password</label>
+                            <input type="password" class="form-control" id="editConfirmPassword">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="updateGovernmentAdmin()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="css/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/system_admin.js"></script>
+</body>
+</html>

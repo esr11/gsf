@@ -1,0 +1,74 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  .navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .verification-section {
+    min-height: calc(100vh - 100px); /* Adjust for fixed navbar (header + footer) */
+    padding-top: 120px; /* Increased spacing from top */
+  }
+  
+  .card {
+    border: none;
+    border-radius: 10px;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .form-control {
+    border-radius: 5px;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 10px;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .text-center a {
+    color: #007bff;
+  }
+  
+  .text-center a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+  
+  footer {
+    background-color: #343a40;
+    color: white;
+    width: 100%;
+    padding: 20px 0; /* Add consistent padding */
+    margin-top: auto; /* Push the footer to the bottom */
+  }
+  footer {
+    margin-top: 50px;
+  }
+  
+  footer small {
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+  
+  footer a i {
+    color: #fff;
+    transition: transform 0.3s ease;
+  }
+  
+  footer a i:hover {
+    transform: scale(1.2);
+  }

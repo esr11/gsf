@@ -1,0 +1,261 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8f9fa;
+  margin-top: 80px; /* Add margin for fixed navbar */
+}
+
+.navbar-nav .nav-link {
+  font-weight: bold;
+  color: wheat;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.navbar-nav .nav-link:hover {
+  color: #ee0a0a;
+  transform: scale(1.1);
+}
+.navbar-nav .nav-link.active {
+  color: #007bff;
+}
+
+/* Filter Section Styles */
+.filter-section {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-section h5 {
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.form-select {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-select:disabled {
+  background-color: #f8f9fa;
+  opacity: 0.6;
+}
+
+.employee-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 20px;
+}
+
+.employee-card {
+  background-color: white;
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  word-wrap: break-word;
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+}
+
+.employee-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: #007bff;
+}
+
+.employee-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  border: 4px solid #f8f9fa;
+  transition: border-color 0.3s ease;
+}
+
+.employee-card:hover img {
+  border-color: #007bff;
+}
+
+.employee-card h5 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: bold;
+}
+
+.employee-card p {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.employee-card strong {
+  color: #333;
+  font-weight: 600;
+}
+
+.employee-card .btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.employee-card .btn:hover {
+  transform: scale(1.05);
+}
+
+/* Footer Styles */
+footer {
+  background-color: #343a40;
+  color: white;
+  width: 100%;
+  padding: 30px 0;
+  margin-top: 40px;
+  flex-shrink: 0;
+}
+
+footer small {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+footer a i {
+  color: #fff;
+  margin: 0 8px;
+  transition: transform 0.3s ease;
+}
+
+footer a i:hover {
+  transform: scale(1.2);
+}
+
+footer .row {
+  align-items: center;
+  justify-content: space-between;
+}
+
+footer .col-md-6 {
+  margin-bottom: 10px;
+}
+
+/* Main Content Section */
+.people-section {
+  padding: 40px 0;
+  min-height: calc(100vh - 200px);
+}
+
+.people-section h1 {
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Container adjustments */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Row and column adjustments */
+.row {
+  margin: 0 -15px;
+}
+
+.col-md-6 {
+  padding: 0 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .employee-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .employee-card {
+    padding: 20px;
+  }
+  
+  .employee-card img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .filter-section {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .people-section {
+    padding: 20px 0;
+  }
+  
+  .people-section h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Loading state */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.loading::after {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error state */
+.error-message {
+  text-align: center;
+  padding: 40px;
+  color: #dc3545;
+  background: rgba(220, 53, 69, 0.1);
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+/* Success state */
+.success-message {
+  text-align: center;
+  padding: 40px;
+  color: #28a745;
+  background: rgba(40, 167, 69, 0.1);
+  border-radius: 10px;
+  margin: 20px 0;
+}

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            background-image: url('images/aa31.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            z-index: 1030;
+            overflow-y: auto;
+        }
+        .sidebar .nav-link {
+            color: rgba(255,255,255,.75);
+        }
+        .sidebar .nav-link:hover {
+            color: white;
+        }
+        .sidebar .nav-link.active {
+            color: white;
+            background-color: rgba(255,255,255,.1);
+        }
+        .main-content {
+            padding: 20px;
+            margin-left: 250px;
+        }
+        .stat-card {
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .photo-preview {
+            width: 100px;
+            height: 133px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .feedback-card {
+            transition: transform 0.2s;
+            margin-bottom: 20px;
+        }
+        .feedback-card:hover {
+            transform: translateY(-5px);
+        }
+        .rating {
+            color: #ffc107;
+        }
+        .feedback-status {
+            font-size: 0.875rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+        .status-pending {
+            background-color: #ffc107;
+            color: #000;
+        }
+        .status-in-progress {
+            background-color: #17a2b8;
+            color: #fff;
+        }
+        .status-resolved {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .status-rejected {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .feedback-details {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        .feedback-actions {
+            margin-top: 10px;
+        }
+        .feedback-actions button {
+            margin-right: 5px;
+        }
+        @media (max-width: 991.98px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <img src="images/ethio.png" alt="Ethiopia Flag" width="40" height="auto">
+                        <h5 class="mt-2">Government Admin</h5>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" onclick="showSection('dashboard')">
+                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('employees')">
+                                <i class="fas fa-users me-2"></i>Employees
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('feedback')">
+                                <i class="fas fa-comments me-2"></i>Feedback
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('reports')">
+                                <i class="fas fa-chart-bar me-2"></i>Reports
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('settings')">
+                                <i class="fas fa-cog me-2"></i>Settings
+                            </a>
+                        </li>
+                        <li class="nav-item mt-4">
+                            <a class="nav-link text-danger" href="login.html">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                <!-- Dashboard Section -->
+                <div id="dashboard">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Dashboard</h1>
+                    </div>
+                    
+                    <!-- Dashboard Stats -->
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="stat-card bg-primary text-white">
+                                <h5>Total Employees</h5>
+                                <h2 id="totalEmployees">0</h2>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="stat-card bg-success text-white">
+                                <h5>Active Offices</h5>
+                                <h2 id="activeOffices">0</h2>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="stat-card bg-warning text-white">
+                                <h5>Pending Feedback</h5>
+                                <h2 id="pendingFeedback">0</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">Recent Activity</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Action</th>
+                                            <th>Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentActivity">
+                                        <!-- Activity will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Employees Section -->
+                <div id="employees" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Employee Management</h1>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">
+                            <i class="fas fa-plus"></i> Add New Employee
+                        </button>
+                    </div>
+
+                    <!-- Selection Filters -->
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <label for="subcityFilter" class="form-label">Select Subcity</label>
+                            <select class="form-select" id="subcityFilter">
+                                <option value="">All Subcities</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="officeFilter" class="form-label">Select Office</label>
+                            <select class="form-select" id="officeFilter" disabled>
+                                <option value="">All Offices</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Employees Table -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Photo</th>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Subcity</th>
+                                            <th>Office</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="employeesList">
+                                        <!-- Employees will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback Section -->
+                <div id="feedback" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Feedback Management</h1>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <label for="feedbackSubcityFilter" class="form-label">Subcity</label>
+                            <select class="form-select" id="feedbackSubcityFilter">
+                                <option value="">All Subcities</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="feedbackOfficeFilter" class="form-label">Office</label>
+                            <select class="form-select" id="feedbackOfficeFilter" disabled>
+                                <option value="">All Offices</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="employeeFilter" class="form-label">Employee</label>
+                            <select class="form-select" id="employeeFilter" disabled>
+                                <option value="">All Employees</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="statusFilter" class="form-label">Status</label>
+                            <select class="form-select" id="statusFilter">
+                                <option value="">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="in_progress">In Progress</option>
+                                <option value="resolved">Resolved</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Feedback List -->
+                    <div id="feedbackList">
+                        <!-- Feedback cards will be loaded here -->
+                    </div>
+
+                    <!-- Feedback Response Modal -->
+                    <div class="modal fade" id="responseModal" tabindex="-1" aria-labelledby="responseModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="responseModalLabel">Respond to Feedback</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="responseForm">
+                                        <input type="hidden" id="feedbackId">
+                                        <div class="mb-3">
+                                            <label for="responseStatus" class="form-label">Status</label>
+                                            <select class="form-select" id="responseStatus" required>
+                                                <option value="in_progress">In Progress</option>
+                                                <option value="resolved">Resolved</option>
+                                                <option value="rejected">Rejected</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="responseMessage" class="form-label">Response Message</label>
+                                            <textarea class="form-control" id="responseMessage" rows="4" required></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-primary" onclick="submitResponse()">Submit Response</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- View Feedback Details Modal -->
+                    <div class="modal fade" id="viewFeedbackModal" tabindex="-1" aria-labelledby="viewFeedbackModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="viewFeedbackModalLabel">Feedback Details</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6>Feedback Provider</h6>
+                                            <div class="feedback-details">
+                                                <p><strong>Name:</strong> <span id="providerName"></span></p>
+                                                <p><strong>Email:</strong> <span id="providerEmail"></span></p>
+                                                <p><strong>Phone:</strong> <span id="providerPhone"></span></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6>Employee Information</h6>
+                                            <div class="feedback-details">
+                                                <p><strong>Name:</strong> <span id="employeeName"></span></p>
+                                                <p><strong>Position:</strong> <span id="employeePosition"></span></p>
+                                                <p><strong>Office:</strong> <span id="employeeOffice"></span></p>
+                                                <p><strong>Subcity:</strong> <span id="employeeSubcity"></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="mt-3">
+                                        <h6>Feedback Content</h6>
+                                        <div class="feedback-details">
+                                            <p><strong>Rating:</strong> <span id="feedbackRating" class="rating"></span></p>
+                                            <p><strong>Message:</strong></p>
+                                            <p id="feedbackMessage" class="border p-3 rounded"></p>
+                                            <p><strong>Submitted:</strong> <span id="feedbackDate"></span></p>
+                                            <p><strong>Status:</strong> <span id="feedbackStatus" class="feedback-status"></span></p>
+                                        </div>
+                                    </div>
+                                    <div id="responseSection" class="mt-3" style="display: none;">
+                                        <h6>Response</h6>
+                                        <div class="feedback-details">
+                                            <p><strong>Response Date:</strong> <span id="responseDate"></span></p>
+                                            <p><strong>Response Message:</strong></p>
+                                            <p id="responseMessage" class="border p-3 rounded"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="respondButton" onclick="showResponseModal()">Respond</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Section -->
+                <div id="reports" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Reports</h1>
+                    </div>
+                    <!-- Reports content will be loaded here -->
+                </div>
+
+                <!-- Settings Section -->
+                <div id="settings" style="display: none;">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Settings</h1>
+                    </div>
+                    <!-- Settings content will be loaded here -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add Employee Modal -->
+    <div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addEmployeeModalLabel">Add New Employee</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addEmployeeForm">
+                        <div class="mb-3">
+                            <label for="employeeName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="employeeName" name="employeeName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="employeePosition" class="form-label">Position</label>
+                            <input type="text" class="form-control" id="employeePosition" name="position" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="employeeSubcity" class="form-label">Subcity</label>
+                            <select class="form-select" id="employeeSubcity" name="subcity_id" required>
+                                    <option value="">Select Subcity</option>
+                                    <option value="13">Addis Ketema Sub-City</option>
+                                    <option value="14">Akaky Kaliti Sub-City </option>
+                                    <option value="15">Arada Sub-City</option>
+                                    <option value="16">Bole Sub-City </option>
+                                    <option value="17">Gullele Sub-City </option>
+                                    <option value="18">Kirkos Sub-City </option>
+                                    <option value="19">Kolfe Keranio Sub-City </option>
+                                    <option value="20">Lideta Sub-City </option>
+                                    <option value="21">Nifas Silk-Lafto Sub-City </option>
+                                    <option value="22">Yeka Sub-City </option>
+                                    </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="employeeOffice" class="form-label">Office</label>
+                            <select class="form-select" id="employeeOffice" name="office_id">
+                                <option value="">Select Office</option>
+                                <option value="212">Office of Employment, Enterprise and Industry</option>
+                                <option value="213">Office of Finance</option>
+                                <option value="214">Office of Housing Development and Administration</option>
+                                <option value="215">Office of Public Service and Human Resource Development</option>
+                                <option value="216">Office of Peace and Security Administration</option>
+                                <option value="217">Office of Culture and Arts Tourism</option>
+                                <option value="218">Office of Land Development and Administration</option>
+                                <option value="219">Office of Design and Construction Works</option>
+                                <option value="220">Office of Commerce</option>
+                                <option value="221">Office of Women, Children and Social Affairs</option>
+                                <option value="222">Office of Revenue</option>
+                                <option value="223">Office of Youth Sports</option>
+                                <option value="224">Office of Urban Beautification and Urban Development</option>
+                                <option value="225">Office of Planning and Development Commission</option>
+                                <option value="226">Office of Investment Commission</option>
+                                <option value="227">Office of State Property Management Authority</option>
+                                <option value="228">Office of Farmers and Urban Agriculture Development Commission</option>
+                                <option value="229">Office of the Fire and Disaster Risk Management Commission</option>
+                                <option value="230">Office of the Education and Training Quality Assurance Authority</option>
+                                <option value="231">Office of the Driver and Operator Licensing and Control Authority</option>
+                                <option value="232">Office of the Traffic Management Agency</option>
+                                <option value="233">Office of the Land Titles and Information Agency</option>
+                                <option value="234">Office of the Vital Records and Information Agency</option>
+                                <option value="235">Office of the Revenue Agency</option>
+                                <option value="236">Office of the Government Procurement and Disposal Service</option>
+                                <option value="237">Office of the Auditor General</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="employeeEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="employeeEmail" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="employeePhone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="employeePhone" name="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="employeePhoto" class="form-label">Profile Photo</label>
+                            <input type="file" class="form-control" id="employeePhoto" name="photo" accept="image/*">
+                            <div id="photoPreview" class="mt-2">
+                                <img src="images/default-avatar.png" alt="Photo Preview" class="photo-preview">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="addEmployee()">Save Employee</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Employee Modal -->
+    <div class="modal fade" id="editEmployeeModal" tabindex="-1" aria-labelledby="editEmployeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editEmployeeModalLabel">Edit Employee</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editEmployeeForm">
+                        <input type="hidden" id="editEmployeeId" name="employee_id">
+                        <div class="mb-3">
+                            <label for="editEmployeeName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="editEmployeeName" name="employeeName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEmployeePosition" class="form-label">Position</label>
+                            <input type="text" class="form-control" id="editEmployeePosition" name="position" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEmployeeSubcity" class="form-label">Subcity</label>
+                            <select class="form-select" id="editEmployeeSubcity" name="subcity_id" required>
+                                <option value="">Select Subcity</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEmployeeOffice" class="form-label">Office</label>
+                            <select class="form-select" id="editEmployeeOffice" name="office_id" required>
+                                <option value="">Select Office</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEmployeeEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editEmployeeEmail" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEmployeePhone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="editEmployeePhone" name="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEmployeePhoto" class="form-label">Profile Photo</label>
+                            <input type="file" class="form-control" id="editEmployeePhoto" name="photo" accept="image/*">
+                            <div id="editPhotoPreview" class="mt-2">
+                                <img src="images/default-avatar.png" alt="Current Photo" class="photo-preview">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="updateEmployee()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/government_admin.js"></script>
+</body>
+</html>

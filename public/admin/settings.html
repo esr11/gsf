@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Settings - GSF Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/dashboard">
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/employees">
+                                Employees
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/admin/settings">
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Settings</h1>
+                </div>
+
+                <!-- Profile Settings -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Profile Settings</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="profileForm">
+                            <div class="mb-3">
+                                <label for="currentName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="currentName" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="currentEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="currentEmail" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="profilePhoto" class="form-label">Profile Photo</label>
+                                <input type="file" class="form-control" id="profilePhoto" name="photo" accept="image/*">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Password Change -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Change Password</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="passwordForm">
+                            <div class="mb-3">
+                                <label for="currentPassword" class="form-label">Current Password</label>
+                                <input type="password" class="form-control" id="currentPassword" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPassword" class="form-label">New Password</label>
+                                <input type="password" class="form-control" id="newPassword" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Change Password</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Notification Settings -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Notification Settings</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="notificationForm">
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="emailNotifications" checked>
+                                <label class="form-check-label" for="emailNotifications">Email Notifications</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="smsNotifications">
+                                <label class="form-check-label" for="smsNotifications">SMS Notifications</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Notification Settings</button>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/admin/settings.js"></script>
+</body>
+</html> 

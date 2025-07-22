@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Service Feedback System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <h1 class="text-xl font-bold text-indigo-600">Government Service Feedback</h1>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <a href="{{ url_for('login') }}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Sign In</a>
+                    <a href="{{ url_for('signup') }}" class="bg-indigo-600 text-white hover:bg-indigo-700 px-4 py-2 rounded-md text-sm font-medium">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
+                    Welcome to Government Service Feedback
+                </h2>
+                <p class="mt-5 max-w-xl mx-auto text-xl text-gray-500">
+                    A platform for citizens to provide feedback on government services and for administrators to manage and improve services.
+                </p>
+            </div>
+
+            <div class="mt-20">
+                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg font-medium text-gray-900">For Citizens</h3>
+                            <p class="mt-2 text-sm text-gray-500">
+                                Submit feedback about government services and help improve public services.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg font-medium text-gray-900">For Government Employees</h3>
+                            <p class="mt-2 text-sm text-gray-500">
+                                Access your dashboard to manage and respond to citizen feedback.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg font-medium text-gray-900">For Administrators</h3>
+                            <p class="mt-2 text-sm text-gray-500">
+                                Monitor service quality and implement improvements based on feedback.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-base text-gray-500">
+                &copy; 2024 Government Service Feedback System. All rights reserved.
+            </p>
+        </div>
+    </footer>
+</body>
+</html> 

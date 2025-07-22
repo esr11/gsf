@@ -1,0 +1,164 @@
+/* General Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #212529;
+}
+
+.navbar-nav .nav-link {
+  font-size: 1rem;
+  font-weight: bold;
+  color: wheat;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ee0a0a;
+  transform: scale(1.1);
+}
+
+.navbar-nav .nav-link.active {
+  color: #007bff;
+}
+
+
+
+.hero-section {
+  background-color: #ffffff;
+  padding: 50px 0;
+}
+.opac{
+  opacity: 70%;
+}
+.about-section {
+  padding: 50px 0;
+  background-color: #ffffff;
+}
+
+
+
+/* Footer Styles */
+footer {
+  background-color: #343a40;
+  color: white;
+}
+
+footer i {
+  color: white;
+}
+
+/* Responsive Images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Language Toggle Button */
+#languageToggle {
+  font-size: 0.9rem;
+  padding: 5px 10px;
+}
+/* Keyframes for Slide-In Animations */
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Apply Animations to Elements */
+.slide-in-left {
+  animation: slideInFromLeft 1s ease-out;
+}
+
+.slide-in-right {
+  animation: slideInFromRight 1s ease-out;
+}
+
+/* Fade-In Animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1.5s ease-in;
+}
+/* Initial State for Scroll-Based Animations */
+.slide-in-left,
+.slide-in-right,
+.fade-in {
+  opacity: 0;
+}
+
+/* Trigger Animations When .animate Class is Added */
+.slide-in-left.animate {
+  animation: slideInFromLeft 1s ease-out forwards;
+}
+
+.slide-in-right.animate {
+  animation: slideInFromRight 1s ease-out forwards;
+}
+
+.fade-in.animate {
+  animation: fadeIn 1.5s ease-in forwards;
+}
+footer {
+  margin-top: 50px;
+}
+
+footer small {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+footer a i {
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+footer a i:hover {
+  transform: scale(1.2);
+}
+
+/* Chat icon styling */
+.navbar-nav .nav-link i.fas.fa-comments {
+    font-size: 1.2rem;
+    color: #007bff;
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover i.fas.fa-comments {
+    color: #0056b3;
+    transform: scale(1.1);
+}
+
+.navbar-nav .nav-link i.fas.fa-comments:hover {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
